@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<script src='/static/js/jquery-3.4.1.js'></script>
+
+<script>
+
+function eventChecker(){
+ var i = $('#event').val();
+ console.log(i);
+ if (i === '0'){
+   $('#changeBackpack').text("");
+   $('#select').html("");
+ }
+ if (i === '1'){
+   $('#changeBackpack').text("What would you like to add?");
+   $('#select').html("<form method='POST' action='/add'><input type='text' id='add'></input><input type='submit' value='Submit''></form>");
+   //");
+   console.log("if statement works");
+ }
+ if (i === '2'){
+   $('#changeBackpack').text("What would you like to remove?");
+   $('#select').html("<select id='items'>{%for i in stuff%}<option value='{{stuff[0]}}'>{{stuff[1]}}</option>{%endfor%}</select>");
+
+ }
+}
+'''
+function addToStorage(){
+  var object = $("#select").val();
+  console.log(object);
+  $.ajax({
+    type:'POST', //post request
+    url:'/add', //sending to route /statSubmit
+    data:object, //sending json string
+    success:function(){
+      console.log('post request worked')
+      }
+  })
+}
+'''
+
+</script>
+This is the contents of your backpack:
+
+<br>
+<p id="backpackContents">
+{%for stuff in results%}
+{{stuff[0]}}
+<br>
+{%endfor%}
+
+</p>
+Would you like to add, or remove something from your backpack?
+
+<select id='event' onchange='eventChecker()'>
+  <option value = '0'></option>
+  <option value = '1'>Add</option>
+  <option value = '2'>Remove</option>
+</select>
+
+<p id="changeBackpack"></p>
+<p id="select"></p>
+<p id="submit"></p>

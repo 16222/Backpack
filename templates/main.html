@@ -13,7 +13,7 @@ function eventChecker(){
  }
  if (i === '1'){
    $('#changeBackpack').text("What would you like to add?");
-   $('#select').html("<form method='POST' action='/add'><input type='text' id='add'></input><input type='submit' value='Submit''></form>");
+   $('#select').html("<form method='POST' action='/add' target='_blank'><input type='text' name='add'></input><input type='submit' value='Submit'></form>");
    //");
    console.log("if statement works");
  }
@@ -23,20 +23,6 @@ function eventChecker(){
 
  }
 }
-'''
-function addToStorage(){
-  var object = $("#select").val();
-  console.log(object);
-  $.ajax({
-    type:'POST', //post request
-    url:'/add', //sending to route /statSubmit
-    data:object, //sending json string
-    success:function(){
-      console.log('post request worked')
-      }
-  })
-}
-'''
 
 </script>
 This is the contents of your backpack:
@@ -59,4 +45,3 @@ Would you like to add, or remove something from your backpack?
 
 <p id="changeBackpack"></p>
 <p id="select"></p>
-<p id="submit"></p>

@@ -15,7 +15,6 @@ def main_page():
 
 @app.route('/add', methods=['POST'])
 def add():
-    print(request.form)
     i = list(request.form)
     print(i)
     #conn = sqlite3.connect('storage.db')

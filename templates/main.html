@@ -13,7 +13,7 @@ function eventChecker(){
  }
  if (i === '1'){
    $('#changeBackpack').text("What would you like to add?");
-   $('#select').html("<form method='POST' action='/add' target='_blank'><input type='text' name='add'></input><input type='submit' value='Submit'></form>");
+   $('#select').html("<form method='POST' action='/'><input type='text' name='add'></input><input type='submit' value='Submit'></form>");
    //");
    console.log("if statement works");
  }
@@ -30,7 +30,7 @@ This is the contents of your backpack:
 <br>
 <p id="backpackContents">
 {%for stuff in results%}
-{{stuff[0]}}
+{{stuff[1]}}
 <br>
 {%endfor%}
 

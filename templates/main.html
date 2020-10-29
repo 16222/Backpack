@@ -4,7 +4,7 @@
 
 <script>
 
-function eventChecker(){
+function eventChecker(i){
  var i = $('#event').val();
  console.log(i);
  if (i === '0'){
@@ -13,15 +13,34 @@ function eventChecker(){
  }
  if (i === '1'){
    $('#changeBackpack').text("What would you like to add?");
-   $('#select').html("<form method='POST' action='/'><input type='text' name='add'></input><input type='submit' value='Submit'></form>");
+   $('#select').html("<form method='POST' action='/add'><input type='text' name='add' onsubmit='refresh()'></input><input type='submit' value='Submit'></form>");
    //");
    console.log("if statement works");
  }
  if (i === '2'){
    $('#changeBackpack').text("What would you like to remove?");
-   $('#select').html("<select id='items'>{%for i in stuff%}<option value='{{stuff[0]}}'>{{stuff[1]}}</option>{%endfor%}</select>");
+   $('#select').html("<select id='items' onchange='removal()'><option></option>{%for i in data%}<option value='{{i['id']}}'>{{i['data']}}</option>{%endfor%}</select>");
 
  }
+}
+
+function removal(){
+  var x = $('#items').val();
+  console.log(x)
+  x = JSON.stringify({"0":x});
+  $.ajax({
+    type:'POST', //post request
+    url:'/remove', //sending to route /statSubmit
+    data:x, //sending string
+    success:function(){
+      console.log('post request worked') //debug
+      refresh();
+}})
+}
+
+function refresh(){
+  location.reload(true);
+  eventChecker()
 }
 
 </script>
@@ -29,8 +48,8 @@ This is the contents of your backpack:
 
 <br>
 <p id="backpackContents">
-{%for stuff in results%}
-{{stuff[1]}}
+{%for i in data%}
+{{i['data']}}
 <br>
 {%endfor%}
 
@@ -42,6 +61,8 @@ Would you like to add, or remove something from your backpack?
   <option value = '1'>Add</option>
   <option value = '2'>Remove</option>
 </select>
+
+
 
 <p id="changeBackpack"></p>
 <p id="select"></p>
